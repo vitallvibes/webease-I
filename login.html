@@ -68,15 +68,21 @@
             font-size: 16px;
         }
 
-        /* Password toggle icon */
+        /* Password toggle icon - UPDATED */
         .login-box .container i {
             position: absolute;
             right: 10px;
-            top: 35px;  /* Adjusted to align with input */
-            transform: translateY(-50%);
+            top: 33px; /* Adjusted position */
             cursor: pointer;
             color: #888;
-            z-index: 2;  /* Ensures it stays on top */
+            background: #f4f4f4; /* Matches login-box background */
+            padding: 0 5px;
+        }
+
+        /* Hide browser's built-in eye icon */
+        input[type="password"]::-ms-reveal,
+        input[type="password"]::-webkit-contacts-auto-fill-button {
+            display: none !important;
         }
 
         /* Submit button */
@@ -121,7 +127,7 @@
     <div class="container-wrapper">
         <!-- Logo Section -->
         <div class="logo-container">
-            <img src="image1.jpeg" height="500" width="500" alt="LOGO">
+            <img src="logo1.jpeg" height="500" width="500" alt="LOGO">
         </div>
 
         <!-- Login Form Section -->
