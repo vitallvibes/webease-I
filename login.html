@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <!-- Font Awesome (loaded only once) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* Reset and base styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+        }
+
+        .container-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            padding: 20px;
+            flex-wrap: wrap;
+            min-height: 100vh;
+        }
+
+        .logo-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .login-box {
+            background: #f4f4f4;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .login-box h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .login-box .container {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .login-box label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* Password toggle icon */
+        .login-box .container i {
+            position: absolute;
+            right: 10px;
+            top: 35px;  /* Adjusted to align with input */
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #888;
+            z-index: 2;  /* Ensures it stays on top */
+        }
+
+        /* Submit button */
+        .login-box .submit {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .login-box .submit:hover {
+            background: #0056b3;
+        }
+
+        .login-box a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .login-box a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Error message */
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-wrapper">
+        <!-- Logo Section -->
+        <div class="logo-container">
+            <img src="image1.jpeg" height="500" width="500" alt="LOGO">
+        </div>
+
+        <!-- Login Form Section -->
+        <div class="login-box">
+            <h3>Login Into Your Account</h3>
+            <form id="login-form">
+                <div class="container">
+                    <label for="username">Enter Your Username</label>
+                    <input type="text" id="username" name="username" placeholder="Username or Email" autocomplete="username" required>
+                </div>
+
+                <div class="container">
+                    <label for="password">Enter Your Password</label>
+                    <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password" required>
+                    <i class="fa-solid fa-eye-slash" id="togglePassword"></i>
+                </div>
+
+                <input type="submit" class="submit" value="Log In">
+                <div class="error-message" id="errorMessage"></div>
+                <a href="#">Forgot password?</a>
+                <a href="register.html">Sign Up</a>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Password Toggle
+        document.getElementById("togglePassword").addEventListener("click", function() {
+            const passwordInput = document.getElementById("password");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                this.classList.replace("fa-eye-slash", "fa-eye");
+            } else {
+                passwordInput.type = "password";
+                this.classList.replace("fa-eye", "fa-eye-slash");
+            }
+        });
+
+        // Login validation
+        document.getElementById("login-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const errorElement = document.getElementById("errorMessage");
+            
+            // Set your username and password here
+            const validUsername = "admin";  // CHANGE THIS
+            const validPassword = "password123";  // CHANGE THIS
+            
+            if (username === validUsername && password === validPassword) {
+                // Successful login
+                errorElement.style.display = "none";
+                
+                // Store login state (temporary)
+                localStorage.setItem("isLoggedIn", "true");
+                localStorage.setItem("username", username);
+                
+                // Redirect to main page
+                window.location.href = "index.html";
+            } else {
+                // Failed login
+                errorElement.textContent = "Invalid username or password";
+                errorElement.style.display = "block";
+                document.getElementById("password").value = "";
+            }
+        });
+    </script>
+</body>
+</html>

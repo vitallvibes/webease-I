@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebEase</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: #f4f4f4;
+            color: #333;
+            margin-top: 50px;
+        }
+        .container {
+            padding: 25px;
+            background: white;
+            border-radius: 8px;
+            width: 350px;
+            margin: auto;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            text-align: center;
+            font-size: 14px;
+        }
+        #loading, #website-section, #link-section {
+            display: none;
+        }
+        h1, h2 {
+            font-weight: 600;
+        }
+        p {
+            font-size: 14px;
+        }
+        .logout-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 8px 12px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .logout-btn:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+    
+    <div class="container" id="welcome-section">
+        <h1>WebEase</h1>
+        <p>Effortlessly generate your professional website.</p>
+        <button onclick="startGenerating()">Create Website</button>
+    </div>
+    
+    <div class="container" id="loading">
+        <h2>Please Wait...</h2>
+        <p>Your website is being generated. This may take a few moments.</p>
+        <div class="spinner"></div>
+    </div>
+    
+    <div class="container" id="website-section">
+        <h2>Writer's Website</h2>
+        <p>Powered by WebEase</p>
+        <button onclick="generateLink()">Generate Link</button>
+        <button onclick="goBack()">Back</button>
+    </div>
+    
+    <div class="container" id="link-section">
+        <h2>Your Website Link</h2>
+        <input type="text" id="website-link" readonly>
+        <button onclick="copyLink()">Copy Link</button>
+        <button onclick="visitLink()">Visit Website</button>
+        <button onclick="goBack()">Back</button>
+    </div>
+
+    <script>
+        function startGenerating() {
+            document.getElementById('welcome-section').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('website-section').style.display = 'block';
+            }, 3000);
+        }
+
+        function generateLink() {
+            document.getElementById('website-section').style.display = 'none';
+            document.getElementById('link-section').style.display = 'block';
+            
+            // Generate a mock URL (replace with your actual logic)
+            const userId = Math.floor(Math.random() * 10000);
+            const link = `https://webease.example.com/portfolio/${userId}`;
+            document.getElementById('website-link').value = link;
+        }
+
+        function copyLink() {
+            const copyText = document.getElementById('website-link');
+            copyText.select();
+            document.execCommand('copy');
+            alert('Link copied to clipboard!');
+        }
+        
+        function visitLink() {
+            const link = document.getElementById('website-link').value;
+            if (link) {
+                window.open(link, '_blank');
+            }
+        }
+        
+        function goBack() {
+            document.getElementById('website-section').style.display = 'none';
+            document.getElementById('link-section').style.display = 'none';
+            document.getElementById('welcome-section').style.display = 'block';
+        }
+        
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // In a real app, you would call your logout API here
+                // fetch('/auth/logout', { method: 'POST' })
+                //     .then(() => window.location.href = 'login.html');
+                
+                // For demo purposes:
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>
